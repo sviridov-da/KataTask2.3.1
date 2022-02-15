@@ -13,8 +13,7 @@ import java.util.List;
 @Transactional
 public class UserServiceImpl implements UserService{
 
-    final
-    UserDao dao;
+    private UserDao dao;
 
     public UserServiceImpl(@Qualifier("userDaoJpaImpl") UserDao dao) {
         this.dao = dao;

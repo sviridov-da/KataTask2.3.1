@@ -1,6 +1,7 @@
 package io.github.sviridovda.services;
 
 import io.github.sviridovda.models.User;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
