@@ -20,13 +20,21 @@ public class UserDaoJpaImpl implements UserDao{
 
     @Override
     public List<User> getAllUsers() {
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
         Query query = entityManager.createQuery("SELECT u FROM User u");
-        return query.getResultList();
+        List<User> res = query.getResultList();
+        transaction.commit();
+        return res;
     }
 
     @Override
     public User getUserById(long id) {
-        return (User) entityManager.find(User.class, id);
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        User res = entityManager.find(User.class, id);
+        transaction.commit();
+        return res;
     }
 
     @Override

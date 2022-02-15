@@ -12,7 +12,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService{
 
     @Autowired
-    @Qualifier("userDaoListImpl")
+    @Qualifier("userDaoJpaImpl")
     UserDao dao;
 
     @Override
