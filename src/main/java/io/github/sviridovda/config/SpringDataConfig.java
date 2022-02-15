@@ -14,6 +14,7 @@ import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
@@ -22,6 +23,8 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -29,6 +32,7 @@ import java.util.Properties;
 @PropertySource("classpath:db.properties")
 @ComponentScan("io.github.sviridovda")
 @EnableWebMvc
+@EnableTransactionManagement
 public class SpringDataConfig implements WebMvcConfigurer {
 
     private ApplicationContext applicationContext;
@@ -100,6 +104,11 @@ public class SpringDataConfig implements WebMvcConfigurer {
     }
 
     @Bean
+    public EntityManager entityManager(){
+        return entityManagerFactory().getObject().createEntityManager();
+    }
+
+    @Bean
     public PlatformTransactionManager transactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
@@ -111,6 +120,7 @@ public class SpringDataConfig implements WebMvcConfigurer {
     public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
         return new PersistenceExceptionTranslationPostProcessor();
     }
+
 
     Properties additionalProperties() {
         Properties properties = new Properties();

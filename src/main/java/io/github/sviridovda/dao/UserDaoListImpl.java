@@ -2,11 +2,12 @@ package io.github.sviridovda.dao;
 
 import io.github.sviridovda.models.User;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Repository
 public class UserDaoListImpl implements UserDao{
     private static int COUNT;
     List<User> users;
